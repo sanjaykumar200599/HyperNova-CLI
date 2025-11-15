@@ -19,22 +19,22 @@ app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use(express.json());
 
 // Fixed: This endpoint now properly handles Bearer token authentication
-// app.get("/api/me", async (req, res) => {
-//   try {
-//     const session = await auth.api.getSession({
-//       headers: fromNodeHeaders(req.headers),
-//     });
+app.get("/api/me", async (req, res) => {
+  try {
+    const session = await auth.api.getSession({
+      headers: fromNodeHeaders(req.headers),
+    });
     
-//     if (!session) {
-//       return res.status(401).json({ error: "No active session" });
-//     }
+    if (!session) {
+      return res.status(401).json({ error: "No active session" });
+    }
     
-//     return res.json(session);
-//   } catch (error) {
-//     console.error("Session error:", error);
-//     return res.status(500).json({ error: "Failed to get session", details: error.message });
-//   }
-// });
+    return res.json(session);
+  } catch (error) {
+    console.error("Session error:", error);
+    return res.status(500).json({ error: "Failed to get session", details: error.message });
+  }
+});
 
 // You can remove this endpoint if you're using the Bearer token approach above
 app.get("/api/me/:access_token", async (req, res) => {
