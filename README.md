@@ -1,3 +1,4 @@
-﻿# HyperNova-CLI
+﻿# HyperNovaCLI
+
 
 
